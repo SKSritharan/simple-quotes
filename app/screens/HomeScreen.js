@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { getRandomQuote } from "../services/apiService";
 import RefreshButton from "../components/RefreshButton";
 import Loader from "../components/Loader";
+import Quote from "../components/Quote";
 
 export default function HomeScreen() {
   const [quote, setQuote] = useState({});
@@ -27,15 +28,8 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <View>
-          <Text style={styles.text}>"{quote.content}"</Text>
-          <Text style={styles.text}>- {quote.author}</Text>
-        </View>
-      )}
-      <RefreshButton onPress={onPressHandler} style={styles.button} />
+      {isLoading ? <Loader /> : <Quote quote={quote} />}
+      <RefreshButton onPress={onPressHandler} />
     </View>
   );
 }
@@ -47,10 +41,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
   },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  button: {},
 });
