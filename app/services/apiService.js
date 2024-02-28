@@ -21,3 +21,19 @@ async function quotableApi(endpoint, params = {}) {
 export async function getRandomQuote() {
   return await quotableApi("/random");
 }
+
+export async function getQuotesByTag(tag) {
+  return await quotableApi("/quotes", { tags: tag });
+}
+
+export async function searchQuotes(query) {
+  return await quotableApi("/search/quotes", { query: query });
+}
+
+export async function listQuotes(page = 1, limit = 10) {
+  return await quotableApi("/quotes", { page, limit });
+}
+
+export async function getQuote(id) {
+  return await quotableApi("/quotes/" + id);
+}

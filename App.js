@@ -5,13 +5,13 @@ import * as Notifications from "expo-notifications";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import { FontAwesome } from "react-native-vector-icons";
 
 import HomeScreen from "./app/screens/HomeScreen";
 import { getRandomQuote } from "./app/services/apiService";
 import DiscoverScreen from "./app/screens/DiscoverScreen";
 import SearchScreen from "./app/screens/SearchScreen";
+import AppBar from "./app/components/AppBar";
 
 export default function App() {
   useEffect(() => {
@@ -100,7 +100,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{ header: (props) => <AppBar {...props} /> }}
+      >
         <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
         <Stack.Screen name="Search" component={SearchScreen} />
       </Stack.Navigator>
