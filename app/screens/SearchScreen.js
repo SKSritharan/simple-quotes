@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 import { searchQuotes } from "../services/apiService";
 import Loader from "../components/Loader";
@@ -8,10 +7,8 @@ import Quote from "../components/Quote";
 
 export default function SearchScreen({ route }) {
   const searchText = route.params?.searchText || "life happiness";
-  const [quotes, setQuotes] = useState([]);
+  const [quotes, setQuotes] = useState({ results: [] });
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     fetchQuotes(searchText);
@@ -21,7 +18,7 @@ export default function SearchScreen({ route }) {
     setIsLoading(true);
     try {
       const data = await searchQuotes(query);
-      setQuotes(data);
+      setQuotes(data || { results: [] });
     } catch (error) {
       console.error("Error fetching random quote:", error);
     } finally {

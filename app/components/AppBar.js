@@ -6,12 +6,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { FontAwesome } from "react-native-vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import React from "react";
 
 export default function AppBar() {
+  const route = useRoute();
   const navigation = useNavigation();
   const [search, setSearch] = React.useState("");
+
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
+  const isSearchScreen = route.name === "Search";
 
   const handleSearch = () => {
     navigation.navigate("Search", { searchText: search });
@@ -20,7 +27,14 @@ export default function AppBar() {
 
   return (
     <View style={styles.appBar}>
-      <Text style={styles.appBarText}>Simple Quotes</Text>
+      <View style={styles.leftContainer}>
+        {isSearchScreen && (
+          <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+            <FontAwesome name="arrow-left" size={20} color="#000" />
+          </TouchableOpacity>
+        )}
+        <Text style={styles.appBarText}>Simple Quotes</Text>
+      </View>
       <View style={styles.searchContainer}>
         <TextInput
           placeholder="Search..."
@@ -49,10 +63,20 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
+  leftContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start", // Align items to the start
+  },
+  backButton: {
+    marginRight: 10,
+  },
   appBarText: {
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+    alignSelf: "center",
+    flex: 1, // Take up remaining space
   },
   searchContainer: {
     flexDirection: "row",
