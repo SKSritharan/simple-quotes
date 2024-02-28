@@ -37,12 +37,12 @@ export default function Filters({ onTagSelected }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   tag: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    margin: 2,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    margin: 8,
     borderWidth: 1,
     borderRadius: 16,
     borderColor: "black",
